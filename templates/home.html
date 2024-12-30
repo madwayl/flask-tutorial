@@ -11,34 +11,40 @@
 
 <body>
     <div class="container" style="margin:0 auto">
-        <h1 class="text-center mt-2 mb-4">Some {{name}}</h1>
+        {% include 'header.html' %}
         <img id="banner" class="fluid"
             src="https://plus.unsplash.com/premium_photo-1661962648855-b97a8e025e0e?q=80&w=3264&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="" srcset="" style="object-fit:cover; height:360px; width:100%">
-        <p class="text-center lead mt-5">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's
-            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-            make
-            a
-            type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-            containing
-            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-            versions
-            of
-            Lorem Ipsum.
-        </p>
-        <h2 class="text-center">Open Position</h2>
+        <div class="row m-5 align-center">
+            <p class="text-center lead mt-5 col">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's
+                standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                to
+                make
+                a
+                type specimen book. It has survived not only five centuries, but also the leap into electronic
+                typesetting,
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
+                containing
+                Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
+                versions
+                of
+                Lorem Ipsum.
+            </p>
+            <img src="/static/side.avif" alt="side image" class="d-none d-md-block col-md-6 my-auto" height="300px"
+                style="object-fit: cover;">
+        </div>
+        <h2 class="text-center mb-2">Open Position</h2>
 
-        <div>
+        <div class="align-center">
             {% for job in jobs %}
             {% include 'jobitem.html' %}
             {% endfor %}
         </div>
 
-        <button class="btn btn-primary btn-large">Contact Us</button>
-        <p class="text-center mt-4">copyrighted material (c) 2024</p>
+
+        {% include 'footer.html' %}
     </div>
 </body>
 
