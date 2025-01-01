@@ -11,18 +11,37 @@ app = Flask(__name__)
 #     { 'id': 3, 'title': 'IT Engineer', 'location': 'In-Office, San Francisco', 'salary': 'Rs. 13,00,000' },
 # ]
 
-def getJobsFromTable():
-    return list(session.query(Jobs))
+def getJobsFromTable(id=None):
+    if not id:
+        return list(session.query(Jobs))
+    return list(session.query(Jobs).where(Jobs.jobid == id))
 
 @app.route("/")
 def index():
     JOBS = getJobsFromTable()
+    # print(JOBS)
     return render_template('home.html', name='Careers', jobs=JOBS)
+
+@app.route("/job/<id>")
+def index_job(id):
+    JOBS = [row.column_as_dict() for row in getJobsFromTable(id)]
+    if len(JOBS) == 0:
+        return "Not Found", 404
+    # print(JOBS)
+    return render_template('jobpage.html', jobs=JOBS[0])
+
+#################
+# All API route #
+#################
 
 @app.route("/api/jobs")
 def list_jobs():
-    print()
     JOBS = [row.column_as_dict() for row in getJobsFromTable()]
+    return jsonify(JOBS)
+
+@app.route("/api/jobs/<id>")
+def list_job_by_id(id):
+    JOBS = [row.column_as_dict() for row in getJobsFromTable(id)]
     return jsonify(JOBS)
 
 if __name__ == '__main__':
