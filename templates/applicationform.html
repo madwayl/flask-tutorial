@@ -1,0 +1,52 @@
+<div class="application-form m-5 container bg-light p-3 rounded-2">
+    <h5 class="lead text-center fw-bold text-capitalize mb-5">Fill the Form for your career</h5>
+    <form action="/job/{{jobs.jobid}}/apply" method="post">
+        <!-- Full Name -->
+        <div class="row g-3 align-items-center mb-3">
+            <div class="col-2 text-center">
+                <label for="fullName" class="col-form-label fw-bold">Full Name</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" id="fullName" name="fullname" class="form-control" required>
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="row g-3 align-items-center mb-3">
+            <div class="col-2 text-center">
+                <label for="email" class="col-form-label fw-bold">Email</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" id="email" name="email" class="form-control" required
+                    aria-describedby="emaildHelpBlock">
+            </div>
+            <div id="emaildHelpBlock" class="form-text col-auto mt-3">
+                Your E-mail is required
+            </div>
+        </div>
+        <!-- LinkedIn URL -->
+        <div class="row g-3 align-items-center mb-3">
+            <div class="col-2 text-center">
+                <label for="LinkedInURL" class="col-form-label fw-bold">LinkedIn URL</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="linkedinURL" id="LinkedInURL" class="form-control">
+            </div>
+        </div>
+        <!-- Work Experience -->
+        <div class="input-group my-3">
+            <span class="input-group-text col-2 fw-bold text-center">Work Experience</span>
+            <textarea name="workExperience" class="form-control" aria-label="experience" rows="5" cols="3"></textarea>
+        </div>
+        <!-- Result URL -->
+        <div class="row align-items-center mb-3">
+            <div class="col-2 text-center">
+                <label for="ResumeURL" class="col-form-label fw-bold">Resume URL</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="ResumeURL" id="ResumeURL" class="form-control">
+            </div>
+        </div>
+        <!-- Apply Button -->
+        <button type="submit" class="btn btn-primary mx-auto">Apply</button>
+    </form>
+</div>

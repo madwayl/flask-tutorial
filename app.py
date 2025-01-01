@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from orm.persistobject import session
 from orm.model import Jobs
 
@@ -16,19 +16,33 @@ def getJobsFromTable(id=None):
         return list(session.query(Jobs))
     return list(session.query(Jobs).where(Jobs.jobid == id))
 
+##############
+# Main route #
+##############
+
 @app.route("/")
 def index():
     JOBS = getJobsFromTable()
     # print(JOBS)
     return render_template('home.html', name='Careers', jobs=JOBS)
 
+########################
+# JobApplication route #
+########################
+
 @app.route("/job/<id>")
 def index_job(id):
-    JOBS = [row.column_as_dict() for row in getJobsFromTable(id)]
+    JOBS = [row.column_as_dict() for row in getJobsFromTable(id)][0]
     if len(JOBS) == 0:
         return "Not Found", 404
     # print(JOBS)
-    return render_template('jobpage.html', jobs=JOBS[0])
+    return render_template('jobpage.html', jobs=JOBS)
+
+@app.route("/job/<id>/apply", methods=['post'])
+def apply_job(id):
+    data = request.form
+    JOBS = [row.column_as_dict() for row in getJobsFromTable(id)][0]
+    return render_template('applicationsubmitted.html', application=data, jobs=JOBS)
 
 #################
 # All API route #
