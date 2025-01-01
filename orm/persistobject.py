@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from sql.connection import engine
-from sql.model import Jobs
+from orm.connection import engine
+from orm.model import Jobs
 
 # setup Session
 session = Session(engine)

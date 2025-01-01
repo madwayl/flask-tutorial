@@ -1,7 +1,8 @@
-from sql.connection import engine, Base
+from orm.connection import engine, Base
 
-from sqlalchemy import String, Integer
+from sqlalchemy.types import String, Integer
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import inspect
 
 # Reference Table
 class Jobs(Base):
@@ -16,6 +17,9 @@ class Jobs(Base):
 
     def __repr__(self):
         return f"<Jobs id: {self.jobid}, jobTitle: {self.jobtitle}, salary: {self.salary}, currency: {self.currency}>"
+    
+    def column_as_dict(self):
+        return {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
 
 # create Table
 Base.metadata.create_all(bind=engine)

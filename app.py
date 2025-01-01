@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify
-from sql.persistobject import session
-from sql.model import Jobs
+from orm.persistobject import session
+from orm.model import Jobs
 
 app = Flask(__name__)
 
@@ -17,12 +17,13 @@ def getJobsFromTable():
 @app.route("/")
 def index():
     JOBS = getJobsFromTable()
-    print(JOBS)
     return render_template('home.html', name='Careers', jobs=JOBS)
 
-# @app.route("/api/jobs")
-# def list_jobs():
-#     return jsonify(JOBS)
+@app.route("/api/jobs")
+def list_jobs():
+    print()
+    JOBS = [row.column_as_dict() for row in getJobsFromTable()]
+    return jsonify(JOBS)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', debug=True)
