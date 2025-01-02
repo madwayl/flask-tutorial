@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select
 
 from orm.connection import engine
 from orm.model import Jobs
