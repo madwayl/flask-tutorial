@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from orm.persistobject import session
-from orm.model import Jobs
+from orm.model import Jobs, Applications
 
 app = Flask(__name__)
 
@@ -15,6 +15,38 @@ def getJobsFromTable(id=None):
     if not id:
         return list(session.query(Jobs))
     return list(session.query(Jobs).where(Jobs.jobid == id))
+
+def onUpdateDataBaseFromForm(application:dict, jobid):
+    if len(list(session.query(Jobs).filter_by(jobid=jobid))) == 0:
+        return False
+    
+    print(application)
+
+    query_check = session.query(Applications).\
+                    filter_by(jobid=jobid).\
+                    filter_by(email=application['email'])
+
+    if len(list(query_check)) == 0:
+        applicaitonFormSub = Applications(
+            jobid = jobid,
+            fullname = application['fullname'],
+            email = application['email'],
+            linkedin_url = application['linkedinURL'],
+            resume_url = application['ResumeURL'],
+            work_experience = application['workExperience']
+        )
+        session.add(applicaitonFormSub)
+    else:
+        query_check.update({
+            Applications.fullname: application['fullname'],
+            Applications.linkedin_url: application['linkedinURL'],
+            Applications.resume_url: application['ResumeURL'],
+            Applications.work_experience: application['workExperience']
+        })
+
+    session.commit()
+
+    return True
 
 ##############
 # Main route #
@@ -42,6 +74,10 @@ def index_job(id):
 def apply_job(id):
     data = request.form
     JOBS = [row.column_as_dict() for row in getJobsFromTable(id)][0]
+
+    if not onUpdateDataBaseFromForm(data, id):
+        return "Bad Request", 400
+    
     return render_template('applicationsubmitted.html', application=data, jobs=JOBS)
 
 #################
@@ -57,6 +93,10 @@ def list_jobs():
 def list_job_by_id(id):
     JOBS = [row.column_as_dict() for row in getJobsFromTable(id)]
     return jsonify(JOBS)
+
+###########
+# Run App #
+###########
 
 if __name__ == '__main__':
     app.run('0.0.0.0', debug=True)
