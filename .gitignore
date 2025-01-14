@@ -171,3 +171,5 @@ cython_debug/
 .pypirc
 
 .vscode
+.env-flask
+.DS_Store

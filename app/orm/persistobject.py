@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from orm.connection import engine
-from orm.model import Jobs
+from app.orm.connection import engine
+from app.orm.model import Jobs
 
 # setup Session
 session = Session(engine)
