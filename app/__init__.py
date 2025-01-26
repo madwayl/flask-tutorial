@@ -1,8 +1,11 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask
+from config import Config
+
 from app.orm.persistobject import session
 from app.orm.model import Jobs, Applications
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 # JOBS = [
 #     { 'id': 1, 'title': 'Frontend Engineer', 'location': 'Remote', 'salary': 'Rs. 22,00,000' },
@@ -48,6 +51,7 @@ def onUpdateDataBaseFromForm(application:dict, jobid):
 
     return True
 
+from app import routes
 
 ###########
 # Run App #
