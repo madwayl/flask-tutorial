@@ -4,6 +4,25 @@
             <img src="/static/image.png" alt="Bootstrap" width="30" height="24" class="col my-auto">
             <h2 class="text-center col my-auto">Some {{name}}</h1>
         </a>
+        {% with messages = get_flashed_messages() %}
+        {% if messages|length > 0 and messages[0] != 'None' %}
+        <div class="d-flex">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+            <a type="button" class="btn btn-secondary mr-auto" href="{{ url_for('logout') }}">
+                Log Out
+            </a>
+        </div>
+
+        {% else %}
+        <button type="button" class="btn btn-primary mr-auto" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Login Now
+        </button>
+        {% endif %}
+        {% endwith %}
     </div>
 </nav>
 <div style="height: 80px;"></div>
+
+{% include 'login.html' %}

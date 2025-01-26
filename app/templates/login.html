@@ -1,0 +1,36 @@
+<div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginModal"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{{ url_for('login') }}" method="post" novalidate>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Sign In</h1>
+                </div>
+                <div class="modal-body">
+
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.username.label }}<br>
+                        {{ form.username(size=32,class='form-control', placeholder='Your Username') }}
+                        {% for error in form.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form.password.label }}<br>
+                        {{ form.password(size=32, class='form-control', placeholder='Your Password') }}
+                        {% for error in form.password.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+        </form>
+    </div>
+</div>
+</div>
