@@ -1,8 +1,10 @@
 from app.orm.connection import engine, Base
 
-from sqlalchemy.types import String, Integer, DateTime, List
+from sqlalchemy.types import String, Integer, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, inspect
+
+from typing import List
 
 from datetime import datetime
 
